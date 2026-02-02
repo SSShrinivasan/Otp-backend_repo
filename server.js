@@ -41,8 +41,8 @@ const OTP = mongoose.model("OTP", otpSchema);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER || "shrinivasan564@gmail.com", // Uses the variable from .env
-    pass: process.env.EMAIL_PASS || "joee vyop dljp gxui", // Uses the variable from .env
+    user: "shrinivasan564@gmail.com", // Uses the variable from .env
+    pass: "joee vyop dljp gxui", // Uses the variable from .env
   },
 });
 app.post("/generate-otp", async (req, res) => {
@@ -53,6 +53,8 @@ app.post("/generate-otp", async (req, res) => {
     console.log("Email transporter verified");
   if (!email) return res.status(400).send("Email required");
 
+  console.log("Generating OTP for email:", email);
+
   const otp = otpGenerator.generate(6, {
     digits: true,
     alphabets: false,
@@ -60,11 +62,17 @@ app.post("/generate-otp", async (req, res) => {
     specialChars: false,
   });
 
+  console.log("111111111111111111111111");
+
   try {
     const otpHash = await bcrypt.hash(otp, 10);
 
+    console.log("222222222222222222222222");
+    
     await OTP.deleteMany({ email });
+    console.log("333333333333333333333333");
     await OTP.create({ email, otpHash });
+    console.log("444444444444444444444444");
 
     await transporter.sendMail({
       from: "shrinivasan564@gmail.com",
@@ -73,7 +81,10 @@ app.post("/generate-otp", async (req, res) => {
       text: `Your OTP is ${otp}. It expires in 5 minutes.`,
     });
 
+    console.log("55555555555555555555555");
+    
     res.status(200).send("OTP sent successfully");
+    console.log("end");
   } catch (err) {
     console.error("OTP ERROR:", err);
     res.status(500).send("Failed to send OTP");
