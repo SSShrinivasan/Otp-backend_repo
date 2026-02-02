@@ -39,17 +39,27 @@ const OTP = mongoose.model("OTP", otpSchema);
 
 // ================= MAIL SETUP =================
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  // service: "gmail",
+  // auth: {
+  //   user: "shrinivasan564@gmail.com", // Uses the variable from .env
+  //   pass: "joee vyop dljp gxui", // Uses the variable from .env
+  // },
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // MUST be false for 587
   auth: {
-    user: "shrinivasan564@gmail.com", // Uses the variable from .env
-    pass: "joee vyop dljp gxui", // Uses the variable from .env
+    user: "shrinivasan564@gmail.com",
+    pass: "joee vyop dljp gxui", // App password
   },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 app.post("/generate-otp", async (req, res) => {
   const { email } = req.body;
   console.log("Request received! Body is:", req.body);
   
-    await transporter.verify(); 
+    await transporter.verify();
     console.log("Email transporter verified");
   if (!email) return res.status(400).send("Email required");
 
