@@ -12,8 +12,8 @@ dotenv.config(); // Load variables from .env
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
-
 const app = express();
+
 
 
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ app.use(cors());
 
 // ================= DB CONNECTION =================
 mongoose.connect(
-  "mongodb+srv://311822104041_db_user:AwUDb1gba4jfHAKa@cluster0.clpetmi.mongodb.net/"
+   "mongodb+srv://testuser:Test12345@cluster-1.xf8z9f9.mongodb.net/?appName=Cluster-1"
 );
 
 mongoose.connection
