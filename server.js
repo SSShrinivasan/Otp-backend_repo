@@ -81,6 +81,9 @@ app.post("/generate-otp", async (req, res) => {
 
 });
 
+app.get("/", async (req, res) => {
+  res.status(200).send("Hello World!");
+});
 
 // ================= VERIFY OTP =================
 app.post("/verify-otp", async (req, res) => {
