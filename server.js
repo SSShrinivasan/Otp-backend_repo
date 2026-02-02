@@ -41,8 +41,8 @@ const OTP = mongoose.model("OTP", otpSchema);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // Uses the variable from .env
-    pass: process.env.EMAIL_PASS, // Uses the variable from .env
+    user: process.env.EMAIL_USER || "shrinivasan564@gmail.com", // Uses the variable from .env
+    pass: process.env.EMAIL_PASS || "joee vyop dljp gxui", // Uses the variable from .env
   },
 });
 app.post("/generate-otp", async (req, res) => {
